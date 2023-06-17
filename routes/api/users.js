@@ -90,11 +90,10 @@ router.get("/logout", authenticateToken, async (req, res) => {
       res.status(401).json({ message: "Not authorized" });
       return;
     }
-
+    res.json({ message: "Log out" });
+    res.status(204);
     user.token = null;
     await user.save();
-
-    res.status(204).send().json({ message: "Log out" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
