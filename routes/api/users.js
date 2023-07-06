@@ -104,6 +104,12 @@ router.post("/login", async (req, res) => {
       return;
     }
 
+    const isVerified = user.verify;
+    if (!isVerified) {
+      res.status(401).json({ message: "Email is not verified" });
+      return;
+    }
+
     const passwordMatch = await bcrypt.compare(
       req.body.password,
       user.password
